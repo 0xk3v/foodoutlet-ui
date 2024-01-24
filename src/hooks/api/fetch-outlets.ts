@@ -1,4 +1,5 @@
 import { baseUrl } from "@/config";
+import { Outlet } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -8,7 +9,7 @@ function useFetchOutlets() {
   const { data: outlets, isLoading } = useQuery({
     queryKey: ["outlets"],
     queryFn: async () => {
-      const { data } = await axios.get(API_URI);
+      const { data } = await axios.get<Outlet[]>(API_URI);
       return data;
     },
   });
