@@ -6,7 +6,7 @@ const Logo = () => {
       <div className="font-bold text-amber-500">
         <Sandwich />
       </div>
-      <div className="font-semibold text-red-500 ">FoodOutlets</div>
+      <div className="font-semibold text-rose-500 ">FoodOutlets</div>
     </div>
   );
 };
