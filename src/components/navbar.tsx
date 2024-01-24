@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
-    <div className="w-full h-20 p-2">
+    <div className="w-full h-20 p-2 shadow border-[1px] mb-4 bg-white">
       <div className="flex items-center justify-between container h-full xl:px-30  mx-auto max-w-5xl">
         <Logo />
         <SearchBar />
