@@ -1,14 +1,15 @@
 import { Outlet } from "@/types";
 import { Badge } from "./ui/badge";
-import { MapPin, Star } from "lucide-react";
+import { Clock4, MapPin, Star } from "lucide-react";
 import calcRating from "@/lib/calc-rating";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 type Props = {
   outlet: Outlet;
@@ -38,7 +39,7 @@ const OutletItem = ({ outlet }: Props) => {
             <div className="flex items-center justify-between">
               <div className="text-slate-700 text-sm flex items-center justify-between">
                 <MapPin className="w-4 text-amber-700" />
-                <p className="pl-2">{outlet.address}</p>
+                <span className="pl-2">{outlet.address}</span>
               </div>
               <Badge variant="amber">{outlet.cuisineType}</Badge>
             </div>
@@ -48,7 +49,9 @@ const OutletItem = ({ outlet }: Props) => {
       <DialogContent>
         <DialogHeader>
           <div className="flex items-center space-x-4">
-            <DialogTitle>{outlet.name}</DialogTitle>
+            <DialogTitle>
+              <strong className="text-lg">{outlet.name}</strong>
+            </DialogTitle>
             <div className="flex">
               {Array.from({ length: Math.floor(calculatedRating) }, (_, i) => (
                 <Star className="text-amber-400 w-4" key={i} />
@@ -61,6 +64,21 @@ const OutletItem = ({ outlet }: Props) => {
           alt="restaurant"
           className="w-full h-full object-contain"
         />
+        <DialogDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-slate-700 text-sm flex items-center">
+                <MapPin className="w-4 text-amber-700" />
+                <span className="pl-2">{outlet.address}</span>
+              </div>
+              <div className="text-slate-700 text-sm flex items-center">
+                <Clock4 className="w-4 text-amber-700" />
+                <span className="pl-2">{outlet.openingHours}</span>
+              </div>
+            </div>
+            <Badge variant="amber">{outlet.cuisineType}</Badge>
+          </div>
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   );
