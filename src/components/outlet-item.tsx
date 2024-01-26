@@ -29,13 +29,13 @@ const OutletItem = ({ outlet }: Props) => {
           </div>
           <div>
             <img
-              src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg"
+              src={outlet.imageUrl}
               alt="restaurant"
-              className="w-full h-full object-contain"
+              className="w-full h-40 object-cover"
             />
           </div>
-          <div className="p-4 ">
-            <strong>{outlet.name}</strong>
+          <div className="p-4">
+            <strong className="text-left">{outlet.name}</strong>
             <div className="flex items-center justify-between">
               <div className="text-slate-700 text-sm flex items-center justify-between">
                 <MapPin className="w-4 text-amber-700" />
@@ -60,7 +60,7 @@ const OutletItem = ({ outlet }: Props) => {
           </div>
         </DialogHeader>
         <img
-          src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg"
+          src={outlet.imageUrl}
           alt="restaurant"
           className="w-full h-full object-contain"
         />
