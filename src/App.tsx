@@ -11,13 +11,17 @@ function App() {
 
   return (
     <>
-      <div className="bg-slate-100 ">
+      <div className="bg-slate-100 h-[100vh]">
         <Navbar />
         {isLoading ? (
           <Loader />
         ) : (
-          <div className="max-w-5xl mx-auto">
-            <OutletWrapper outlets={outlets} />
+          <div className="max-w-5xl mx-auto ">
+            {outlets && outlets.length > 0 ? (
+              <OutletWrapper outlets={outlets} />
+            ) : (
+              "none"
+            )}
           </div>
         )}
       </div>
