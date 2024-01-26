@@ -4,6 +4,7 @@ type Outlet = {
   address: string;
   cuisineType: string;
   openingHours: string;
+  imageUrl: string;
   ratings: Rating[];
 };
 
