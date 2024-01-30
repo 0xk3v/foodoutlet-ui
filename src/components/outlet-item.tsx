@@ -1,6 +1,9 @@
 import { Outlet } from "@/types";
 import { Badge } from "./ui/badge";
 import { Clock4, MapPin, Star } from "lucide-react";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import calcRating from "@/lib/calc-rating";
 import {
   Dialog,
@@ -10,14 +13,43 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import useAddRating from "@/hooks/api/add-rating";
 
 type Props = {
   outlet: Outlet;
 };
 
+const formSchema = z.object({
+  rating: z.number().min(1).max(5),
+  foodOutletId: z.number().nonnegative(),
+});
+
 const OutletItem = ({ outlet }: Props) => {
+  const { mutate } = useAddRating();
+
   const calculatedRating = calcRating(outlet.ratings);
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      foodOutletId: outlet.id,
+      rating: 5,
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // console.log(values);
+    mutate(values);
+  }
   return (
     <Dialog>
       <DialogTrigger>
@@ -30,7 +62,7 @@ const OutletItem = ({ outlet }: Props) => {
           <div>
             <img
               src={outlet.imageUrl}
-              alt="restaurant"
+              alt={outlet.name}
               className="w-full h-40 object-cover"
             />
           </div>
@@ -61,8 +93,8 @@ const OutletItem = ({ outlet }: Props) => {
         </DialogHeader>
         <img
           src={outlet.imageUrl}
-          alt="restaurant"
-          className="w-full h-full object-contain"
+          alt={outlet.name}
+          className="w-full h-60 object-cover"
         />
         <DialogDescription>
           <div className="flex items-center justify-between">
@@ -78,6 +110,31 @@ const OutletItem = ({ outlet }: Props) => {
             </div>
             <Badge variant="amber">{outlet.cuisineType}</Badge>
           </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="space-x-4 flex items-start">
+                <FormField
+                  control={form.control}
+                  name="rating"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(event) =>
+                            field.onChange(Number(event.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit">Add rating</Button>
+              </div>
+            </form>
+          </Form>
         </DialogDescription>
       </DialogContent>
     </Dialog>
