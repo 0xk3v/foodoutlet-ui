@@ -5,8 +5,11 @@ import { toast } from "sonner";
 import axios from "axios";
 
 type RequestType = {
-  rating: number;
-  foodOutletId: number;
+  name: string;
+  address: string;
+  cuisineType: string;
+  openingHours: string;
+  imageUrl: string;
 };
 
 async function createOutlet(data: RequestType) {
