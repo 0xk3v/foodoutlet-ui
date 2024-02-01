@@ -21,7 +21,6 @@ function useAddRating() {
     onSuccess: (data) => {
       console.log(data);
       toast.success("A new rating has been added!");
-      // window.location.href = "http://localhost:5173/";
     },
   });
 
